@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:chewie/chewie.dart';
+// import 'package:chewie/chewie.dart';
 import 'package:fitness_flutter/core/const/color_constants.dart';
 import 'package:fitness_flutter/data/exercise_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
 class StartWorkoutVideo extends StatefulWidget {
@@ -23,35 +23,37 @@ class StartWorkoutVideo extends StatefulWidget {
 }
 
 class _StartWorkoutVideoState extends State<StartWorkoutVideo> {
-  late VideoPlayerController _controller;
+  // late VideoPlayerController _controller;
   // late Future<void> _initializeVideoPlayerFuture;
   late bool isPlayButtonHidden = false;
-  late ChewieController _chewieController;
+  // late ChewieController _chewieController;
   Timer? timer;
   Timer? videoTimer;
+  
+  get _chewieController => null;
   // bool _isVideoPlaying = false;
 
   @override
   void initState() {
-    _controller = VideoPlayerController.asset(widget.exercise.video);
+    // _controller = VideoPlayerController.asset(widget.exercise.video);
 
-    _controller.initialize();
+    // _controller.initialize();
 
-    _chewieController = ChewieController(
-        videoPlayerController: _controller,
-        looping: true,
-        autoPlay: false,
-        deviceOrientationsAfterFullScreen: [DeviceOrientation.portraitUp],
-        aspectRatio: 15 / 10,
-        placeholder: Center(child: CupertinoActivityIndicator()),
-        materialProgressColors: ChewieProgressColors(playedColor: ColorConstants.primaryColor));
+    // _chewieController = ChewieController(
+    //     videoPlayerController: _controller,
+    //     looping: true,
+    //     autoPlay: false,
+    //     deviceOrientationsAfterFullScreen: [DeviceOrientation.portraitUp],
+    //     aspectRatio: 15 / 10,
+    //     placeholder: Center(child: CupertinoActivityIndicator()),
+    //     materialProgressColors: ChewieProgressColors(playedColor: ColorConstants.primaryColor));
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    _chewieController.dispose();
+    // _controller.dispose();
+    // _chewieController.dispose();
     super.dispose();
   }
 
@@ -117,4 +119,13 @@ class _StartWorkoutVideoState extends State<StartWorkoutVideo> {
 
   //   return duration - position;
   // }
+}
+
+Chewie({required controller}) {
+}
+
+
+
+class _controller {
+  static var value;
 }

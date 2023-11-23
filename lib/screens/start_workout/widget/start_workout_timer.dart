@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:custom_timer/custom_timer.dart';
 import 'package:fitness_flutter/core/service/date_service.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,8 @@ class StartWorkoutTimer extends StatefulWidget {
 }
 
 class _StartWorkoutTimerState extends State<StartWorkoutTimer> {
+  get controller => null;
+
   @override
   Widget build(BuildContext context) {
     return widget.isPaused ? _createPauseText() : _createCountdownTimer();
@@ -23,15 +27,13 @@ class _StartWorkoutTimerState extends State<StartWorkoutTimer> {
 
   Widget _createCountdownTimer() {
     return CustomTimer(
-      from: Duration(seconds: widget.time),
-      to: Duration(seconds: 0),
-      onBuildAction: CustomTimerAction.auto_start,
-      builder: (CustomTimerRemainingTime remaining) {
+      // Duration(seconds: widget.time),
+      builder: (CustomTimerState state, CustomTimerRemainingTime remaining) {
         return Text(
           "${remaining.minutes}:${remaining.seconds}",
           style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
         );
-      },
+      }, controller: controller,
     );
   }
 
@@ -45,4 +47,8 @@ class _StartWorkoutTimerState extends State<StartWorkoutTimer> {
       ),
     );
   }
+}
+
+class CustomTimerAction {
+  static var auto_start;
 }

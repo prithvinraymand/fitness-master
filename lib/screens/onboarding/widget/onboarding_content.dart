@@ -49,7 +49,7 @@ class OnboardingContent extends StatelessWidget {
           builder: (context, state) {
             return DotsIndicator(
               dotsCount: 3,
-              position: bloc.pageIndex.toDouble(),
+              position: bloc.pageIndex.toDouble().toInt(),
               decorator: DotsDecorator(
                 color: Colors.grey,
                 activeColor: ColorConstants.primaryColor,

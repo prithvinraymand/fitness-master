@@ -11,7 +11,8 @@ import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp();
   runApp(MyApp());
 }
@@ -22,19 +23,49 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  static late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = NotificationService.flutterLocalNotificationsPlugin;
+  static late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      NotificationService.flutterLocalNotificationsPlugin;
 
   @override
-  initState() {
-    super.initState();
-    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-    final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings();
-    final InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+  void initState() {
+  super.initState();
 
-    tz.initializeTimeZones();
+  // Initialize Android notification settings
 
-    flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: selectNotification);
-  }
+  
+const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('app_icon');
+
+  // Set up initialization settings for both Android and iOS
+  final InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+  );
+
+  // Initialize time zones for date and time formatting
+  tz.initializeTimeZones();
+
+  // Initialize local notifications plugin and handle notification responses
+  flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) async {
+        // Handle user interactions with notifications based on the response
+        if (notificationResponse.payload != null) {
+          // Handle notification with payload (additional information)
+          switch (notificationResponse.actionId) {
+            case 'action1':
+              // Handle action 1
+              break;
+            case 'action2':
+              // Handle action 2
+              break;
+            default:
+              // Handle default action
+              break;
+          }
+        } else {
+          // Handle notification without payload
+        }
+      });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +74,8 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Fitness',
       theme: ThemeData(
-        textTheme: TextTheme(bodyText1: TextStyle(color: ColorConstants.textColor)),
+        textTheme:
+            TextTheme(bodyText1: TextStyle(color: ColorConstants.textColor)),
         fontFamily: 'NotoSansKR',
         scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
